@@ -2,6 +2,7 @@
 import logging
 from datetime import datetime
 import sys
+import os
 import json
 from ollama import Client
 import platform
@@ -37,7 +38,8 @@ def get_shell_command_tool(commands: list[str]) -> dict:
 
 def interact_with_ollama(user_query):
     """Interact with the Ollama server and retrieve command suggestions."""
-    client = Client(host='http://192.168.1.240:11434')
+    ollama_url = os.getenv('KOLLZSH_URL', 'http://localhost:11434')
+    client = Client(host=ollama_url)
     log_debug("Sending query to Ollama:", user_query)
     
     # Format the user query to focus on shell commands
