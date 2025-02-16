@@ -46,8 +46,9 @@ def interact_with_ollama(user_query):
     formatted_query = f"Generate shell commands for the following task: {user_query}. Provide multiple relevant commands if available."
     
     try:
+        model = os.getenv('KOLLZSH_MODEL', 'qwen2.5-coder:3b')
         response = client.chat(
-            model='qwen2.5-coder:14b',
+            model=model,
             messages=[{
                 "role": "user",
                 "content": formatted_query
